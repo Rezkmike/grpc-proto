@@ -1,0 +1,15 @@
+FROM golang:1.20-alpine
+
+WORKDIR /app
+
+COPY generated /app/generated
+COPY client /app/client
+
+RUN apk add --no-cache git \
+    && cd /app/client \
+    && go mod edit -replace example.com/mypackage/generated=../generated \
+    && go mod tidy \
+    && go build -o client .
+
+CMD ["/app/client/client"]
+

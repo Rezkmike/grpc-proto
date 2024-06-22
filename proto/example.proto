@@ -1,0 +1,24 @@
+syntax = "proto3";
+
+option go_package = "example.com/mypackage;mypackage";
+
+package example;
+
+message Person {
+    string name = 1;
+    int32 id = 2;
+    string email = 3;
+}
+
+service PersonService {
+    rpc GetPerson (PersonRequest) returns (PersonResponse);
+}
+
+message PersonRequest {
+    int32 id = 1;
+}
+
+message PersonResponse {
+    Person person = 1;
+}
+
